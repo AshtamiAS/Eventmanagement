@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Event Management</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="main-header" id="mainHeader">
+      <h1 class="event-header">Manage your Events</h1>
+    </div>
+    <div class="event-details">
+      <div class="event-upload">
+        <label class="file-type">Select file Type</label>
+        <select class="select-file-type" id="select-file-type">
+          <option value="" disabled selected>Select file type</option>
+          <option value="task">Task</option>
+          <option value="event">Event</option>
+        </select>
+        <div class="file-input">
+          <input type="file" id="fileInput" accept=".csv" />
+        </div>
+        <button class="submit" onclick="handleSubmit()">Submit</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
