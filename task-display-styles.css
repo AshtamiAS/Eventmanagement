@@ -4,16 +4,14 @@ body{
     padding: 0;
     
 }
-
-.display-table-header{
+.task-display-table-header{
     width: 100%;
     padding: 5px;
     text-align: center;
     background-color: rgb(68, 116, 155);
-    color: beige;
+    color: beige;  
 }
-
-.display-table{
+.task-table-display{
     display: block;
     width: 100%;
     text-align: center;
@@ -23,28 +21,10 @@ body{
     border: 1px solid rgb(68, 116, 155);
     margin-top: 2%;
     box-shadow: 5px 5px 10px rgb(55, 176, 206) ;
-
-}
-
-.actionButton{
-    padding: 5px;
-    background-color: rgb(68, 116, 155);
-    border-radius: 50px;
-    border: none;
-    box-shadow: 5px 5px 10px rgb(55, 176, 206);
-    transition: 0.15s;
-}
-.actionButton:hover{
-    opacity: 0.5;
-}
-.actionButton:active{
-    color: azure;
-    background-color: rgb(3, 18, 31);
 }
 
 table {
     width: 90%;
-    border-radius: 20px;
     border-collapse: collapse;
     text-align: center;
     margin-left: auto;
@@ -55,7 +35,7 @@ table {
 
 th, td {
     border: 1px solid rgb(68, 116, 155);
-    padding: 5px;
+    padding: 8px;
     text-align: left;
     
 }
