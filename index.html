@@ -12,7 +12,6 @@
       <div class="event-upload">
         <label class="file-type">Select file Type</label>
         <select class="select-file-type" id="select-file-type">
-          <option value="" disabled selected>Select Task file First</option>
           <option value="task">Task</option>
           <option value="event">Event</option>
         </select>
@@ -22,7 +21,13 @@
         <button class="submit"  onclick="handleSubmit()">Submit</button>
       </div>
     </div>
-
+    <div id="warningModal" class="modal">
+      <div class="modal-content">
+        <span class="close-button" id="modalCloseButton">&times;</span>
+        <p id="warningMessage"></p>
+      </div>
+    </div>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>

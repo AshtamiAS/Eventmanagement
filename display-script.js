@@ -17,9 +17,7 @@ function createTableFromJSON(json) {
 
   const tbody = table.createTBody();
   const currentDate = new Date();
-
-  // Retrieve statusArray from localStorage
-  const statusArray = JSON.parse(localStorage.getItem('statusArray')) || [];
+  const statusArray = JSON.parse(localStorage.getItem("statusArray")) || [];
 
   data.forEach((item) => {
     const row = tbody.insertRow();
@@ -30,15 +28,23 @@ function createTableFromJSON(json) {
         row.appendChild(td);
       }
     });
+    const startDate = new Date(item["start date"]);
+    const endDate = new Date(item["end date"]);
+    let status = "Not Completed"; 
 
-    // Determine eventId
-    const eventId = item["eventid"];
-
-    // Check if statusArray has all tasks finished for this event
-    const eventStatus = getStatusForEvent(eventId, statusArray);
+    if (currentDate >= startDate && currentDate <= endDate) {
+      status = "In Progress";
+    } else if (currentDate > endDate) {
+      status = "Failed";
+    }
+    if (areAnyTasksInProgress(item["eventid"])) {
+      status = "In Progress";
+    } else if (areAllTasksCompleted(item["eventid"])) {
+      status = "Completed";
+    }
 
     const statusCell = row.insertCell();
-    statusCell.textContent = eventStatus;
+    statusCell.textContent = status;
 
     const actionCell = row.insertCell();
     const actionButton = document.createElement("button");
@@ -47,31 +53,28 @@ function createTableFromJSON(json) {
     actionCell.appendChild(actionButton);
 
     actionButton.addEventListener("click", function () {
-      showTaskForEvent(eventId);
+      localStorage.setItem("currentEventStatus", status); 
+      showTaskForEvent(item["eventid"]);
     });
   });
 }
 
-function getStatus(startDateStr, endDateStr, currentDate) {
-  const startDate = new Date(startDateStr);
-  const endDate = new Date(endDateStr);
-
-  if (currentDate < startDate) {
-    return "Not Completed";
-  } else if (currentDate > endDate) {
-    return "Failed";
-  } else {
-    return "In Progress";
+function areAllTasksCompleted(eventId) {
+  const statusArray = JSON.parse(localStorage.getItem("statusArray")) || [];
+  const event = statusArray.find((item) => item.eventid === eventId);
+  if (event) {
+    return event.tasks.every((task) => task.status === "Finished");
   }
+  return false;
 }
 
-function getStatusForEvent(eventId, statusArray) {
-  const event = statusArray.find(item => item.eventid === eventId);
+function areAnyTasksInProgress(eventId) {
+  const statusArray = JSON.parse(localStorage.getItem("statusArray")) || [];
+  const event = statusArray.find((item) => item.eventid === eventId);
   if (event) {
-    const allTasksFinished = event.tasks.every(task => task.status === 'Finished');
-    return allTasksFinished ? 'Finished' : 'In Progress';
+    return event.tasks.some((task) => task.status === "In Progress");
   }
-  return 'Not Completed'; // Default status if event not found in statusArray
+  return false;
 }
 
 function showTaskForEvent(eventId) {
